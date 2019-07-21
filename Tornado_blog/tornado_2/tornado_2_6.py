@@ -25,7 +25,7 @@ class IndexHandler(tornado.web.RequestHandler):
 
 if __name__ == '__main__':
     app = tornado.web.Application([
-        (r'/', IndexHandler),  # 生成服务实例，通常包含路由信息\
+        (r'/', IndexHandler),  # 生成服务实例，通常包含路由信息
     ], debug=True)
     app.listen(8000)  # 监听端口
     tornado.ioloop.IOLoop.current().start()  # 开启服务
