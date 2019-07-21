@@ -8,15 +8,12 @@ import tornado.ioloop
 
 
 class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-        cookie = self.get_secure_cookie("count")
-        count = int(cookie) + 1 if cookie else 1
-        self.set_secure_cookie("count", str(count))
+    def get(self):  # 向当前url发送post请求
         self.write(
-                '<html><head><title>Cookie Counter</title></head>'
-                '<body><h1>访问量：%d次。</h1>' % count +
-                '</body></html>'
-        )
+                """<form method="post"><input type="text" name="message"/><input type="submit" value="Post"/></form>""")
+
+    def post(self):
+        self.write("hello world")
 
 
 if __name__ == '__main__':
@@ -24,7 +21,8 @@ if __name__ == '__main__':
         (r'/', MainHandler),
     ],
             debug=True,
-            cookie_secret="hhLgDUloTO2hKpawAGathnZEwNDbDEAOrNZQLj1DAzk="
+            cookie_secret="hhLgDUloTO2hKpawAGathnZEwNDbDEAOrNZQLj1DAzk=",
+            xsrf_cookies=True  # 打开xsrf验证需求
     )
     app.listen(8000)
     tornado.ioloop.IOLoop.current().start()
